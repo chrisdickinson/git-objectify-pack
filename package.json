@@ -1,6 +1,6 @@
 {
   "name": "git-objectify-pack",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "transform offset+data bits into full git objects",
   "main": "index.js",
   "scripts": {
