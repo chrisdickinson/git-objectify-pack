@@ -1,0 +1,30 @@
+{
+  "name": "git-objectify-pack",
+  "version": "0.0.0",
+  "description": "transform offset+data bits into full git objects",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/chrisdickinson/git-objectify-pack.git"
+  },
+  "keywords": [
+    "git",
+    "object",
+    "pack"
+  ],
+  "author": "Chris Dickinson <chris@neversaw.us>",
+  "license": "MIT",
+  "dependencies": {
+    "through": "~2.2.7",
+    "git-to-js": "0.0.1",
+    "git-apply-delta": "0.0.3",
+    "git-object-hash": "0.0.3"
+  },
+  "devDependencies": {
+    "tape": "~0.3.3",
+    "git-list-pack": "0.0.1"
+  }
+}
