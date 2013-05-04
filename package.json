@@ -19,13 +19,13 @@
   "license": "MIT",
   "dependencies": {
     "through": "~2.2.7",
-    "git-to-js": "0.0.3",
-    "git-apply-delta": "0.0.3",
-    "git-object-hash": "0.0.3",
+    "git-to-js": "0.0.4",
+    "git-apply-delta": "0.0.4",
+    "git-object-hash": "0.0.4",
     "bops": "0.0.2"
   },
   "devDependencies": {
-    "tape": "~0.3.3",
+    "tape": "~1.0.1",
     "git-list-pack": "0.0.1"
   }
 }
