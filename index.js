@@ -2,6 +2,7 @@ var through = require('through')
   , hashify = require('git-object-hash')
   , apply = require('git-apply-delta')
   , g2j = require('git-to-js')
+  , binary = require('bops')
 
 module.exports = objectify
 
@@ -33,7 +34,6 @@ function objectify(find) {
       , hash: null
     }
     out.object.hash = out.hash = hashify(out.object)
-    loaded.push(out)
     stream.queue(out.object)
   }
 
@@ -55,13 +55,13 @@ function objectify(find) {
   function object_from_ofs_delta(info) {
     // walk back from loaded.length to 0
     var buf = info.reference
-      , _byte = buf.readUInt8(0)
+      , _byte = buf[0]
       , offset = _byte & 0x7F
 
     while(_byte & 0x80) {
       offset += 1
       offset <<= 7
-      _byte = buf.readUInt8(idx++)
+      _byte = buf[idx++]
       offset += _byte & 0x7F
     }
 
@@ -81,7 +81,9 @@ function objectify(find) {
   }
 
   function object_from_ref_delta(info) {
-    var hash = info.reference.toString('hex')
+    var hash = binary.to(info.reference, 'hex')
+      , found = false
+
     for(var i = loaded.length - 1; i > -1; --i) {
       var target = loaded[i]
       if(target.hash === hash) {
@@ -96,8 +98,11 @@ function objectify(find) {
           delayed_find(data.object)
         }
       }
-      stream.on('data', listener)
+      stream.once('data', listener)
       return find(info.reference, function(err, data) {
+        if(found) {
+          return
+        }
         if(data) {
           delayed_find(data) 
         }
@@ -108,6 +113,7 @@ function objectify(find) {
 
     function delayed_find(target) {
       stream.removeListener('data', listener)
+      found = true
       info.type = data.type
       apply_delta(info, data)
       !--pending && really_end()
@@ -125,11 +131,6 @@ function objectify(find) {
     }
 
     out.object.hash = out.hash = hashify(out.object)
-    loaded.push(out)
     stream.queue(out.object)
-  }
-
-  function find_object_later(then_do, info) {
-    // hah, what? just kidding bros.
   }
 }
