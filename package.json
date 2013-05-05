@@ -19,7 +19,7 @@
   "license": "MIT",
   "dependencies": {
     "through": "~2.2.7",
-    "git-to-js": "0.0.4",
+    "git-to-js": "0.0.5",
     "git-apply-delta": "0.0.4",
     "git-object-hash": "0.0.5",
     "bops": "0.0.2"
