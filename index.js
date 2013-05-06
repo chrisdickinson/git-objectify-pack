@@ -95,7 +95,7 @@ function objectify(find) {
       ++pending
       var listener = function(data) {
         if(data.hash === hash) {
-          delayed_find(data.object)
+          delayed_find(data)
         }
       }
       stream.once('data', listener)
@@ -103,6 +103,7 @@ function objectify(find) {
         if(found) {
           return
         }
+        stream.removeListener('data', listener)
         if(data) {
           delayed_find(data) 
         }
@@ -111,10 +112,10 @@ function objectify(find) {
 
     return apply_delta(info, target.object)
 
-    function delayed_find(target) {
-      stream.removeListener('data', listener)
+    function delayed_find(data) {
       found = true
       info.type = data.type
+
       apply_delta(info, data)
       !--pending && really_end()
     }
