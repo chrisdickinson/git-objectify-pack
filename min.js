@@ -61,6 +61,7 @@ function objectify(find) {
     var buf = info.reference
       , _byte = buf[0]
       , offset = _byte & 0x7F
+      , idx = 1 
       , ref
 
     ++pending
