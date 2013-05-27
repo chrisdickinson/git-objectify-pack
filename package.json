@@ -22,7 +22,7 @@
     "git-to-js": "0.0.6",
     "git-apply-delta": "0.0.5",
     "git-object-hash": "0.0.7",
-    "bops": "0.0.3"
+    "bops": "~0.0.6"
   },
   "devDependencies": {
     "tape": "~1.0.1",
